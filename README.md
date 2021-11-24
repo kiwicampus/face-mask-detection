@@ -40,7 +40,7 @@ By the end of this project; you will be able to build DeepStream app on Jetson p
               ```docker pull nvcr.io/nvidia/tlt-streamanalytics:v2.0_py3```
           - Run the docker image:
               ```
-              docker run --gpus all -it -v "/path/to/dir/on/host":"/path/to/dir/in/docker" \
+              docker run --gpus all -it -v "./":"/workspace" \
                             -p 8888:8888 nvcr.io/nvidia/tlt-streamanalytics:v2.0_py3 /bin/bash
               ```
       - Clone Git repo in TLT container:
