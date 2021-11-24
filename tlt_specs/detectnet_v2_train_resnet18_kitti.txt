@@ -1,8 +1,8 @@
 random_seed: 42
 dataset_config {
   data_sources {
-    tfrecords_path: "/home/data/tfrecords/kitti_trainval/*"
-    image_directory_path: "/home/data/train"
+    tfrecords_path: "/workspace/6000-all-kitti-format/tfrecords/kitti_trainval/*"
+    image_directory_path: "/workspace/6000-all-kitti-format/train"
   }
   image_extension: "jpg"
   target_class_mapping {
@@ -71,7 +71,7 @@ postprocessing_config {
 }
 
 model_config {
-  pretrained_model_file: "/home/detectnet_v2/pretrained_resnet18/tlt_pretrained_detectnet_v2_vresnet18/resnet18.hdf5"
+  pretrained_model_file: "/workspace/detectnet_v2/pretrained_resnet18/tlt_pretrained_detectnet_v2_vresnet18/resnet18.hdf5"
   num_layers: 18
   use_batch_norm: true
   objective_set {
@@ -157,7 +157,7 @@ cost_function_config {
 }
 
 training_config {
-  batch_size_per_gpu: 24
+  batch_size_per_gpu: 8
   num_epochs: 120
   learning_rate {
     soft_start_annealing_schedule {

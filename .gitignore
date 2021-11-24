@@ -1,0 +1,4 @@
+.ipynb*
+*.mp4
+*.pyc
+6000-all-kitti-format/

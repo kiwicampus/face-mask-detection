@@ -1,5 +1,5 @@
 kitti_config {
-  root_directory_path: "/home/data/train"
+  root_directory_path: "/workspace/6000-all-kitti-format/train"
   image_dir_name: "images"
   label_dir_name: "labels"
   image_extension: ".jpg"

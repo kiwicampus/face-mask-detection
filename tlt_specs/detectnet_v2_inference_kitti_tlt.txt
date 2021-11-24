@@ -8,12 +8,12 @@ inferencer_config{
   image_height: 544
   # Must match what the model was trained for.
   image_channels: 3
-  batch_size: 16
+  batch_size: 8
   gpu_index: 0
   #model handler config
   tlt_config{
-    model: "/home/detectnet_v2/experiment_dir_retrain/weights/resnet18_detector_pruned.tlt"
-    #model: "/home/detectnet_v2/experiment_dir_unpruned/weights/model.tlt"
+    #model: "/workspace/detectnet_v2/experiment_dir_retrain/weights/resnet18_detector_pruned.tlt"
+    model: "/workspace/detectnet_v2/experiment_dir_unpruned/weights/resnet18_detector.tlt"
   }
 }
 bbox_handler_config{
