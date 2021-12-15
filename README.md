@@ -30,6 +30,9 @@ By the end of this project; you will be able to build DeepStream app on Jetson p
 
 *Note: We do not use all the images from MAFA and WiderFace. Combining we will use about 6000 faces each with and without mask*
 
+We have zipped all datasets into one zipped file. You'll need our google credentials to access the datasets. Download the dataset and unzip it. We also have preprocessed the dataset and only uploaded the 6000 dataset zip file.
+* [All datasets](https://console.cloud.google.com/storage/browser/_details/autonomy-vision/images/open-source-datasets/face-mask-detection/6000-all-kitti-format.zip)
+* [Preprocessed 6000 faces dataset](https://console.cloud.google.com/storage/browser/_details/autonomy-vision/images/open-source-datasets/face-mask-detection/4-open-datasets.zip)
 ## Steps to perform Face Detection with Mask:
 
 - Install dependencies and Docker Container <br/>
@@ -40,23 +43,14 @@ By the end of this project; you will be able to build DeepStream app on Jetson p
               ```docker pull nvcr.io/nvidia/tlt-streamanalytics:v2.0_py3```
           - Run the docker image:
               ```
-              docker run --gpus all -it -v "./":"/workspace" \
+              docker run --gpus all -it -v "$PWD":"/workspace" \
                             -p 8888:8888 nvcr.io/nvidia/tlt-streamanalytics:v2.0_py3 /bin/bash
               ```
-      - Clone Git repo in TLT container:
-          ```
-          git clone https://github.com/NVIDIA-AI-IOT/face-mask-detection.git
-          ```
-      - Install data conversion dependencies
-          ```
-          cd face-mask-detection
-          python3 -m pip install -r requirements.txt
-          ```
   - On NVIDIA Jetson:
       - [Install DeepStream](https://docs.nvidia.com/metropolis/deepstream/dev-guide/index.html#page/DeepStream_Development_Guide/deepstream_quick_start.html#wwpID0E0GI0HA)
 
 - Prepare input data set (On training machine)
-    - We expect downloaded data in [this](https://github.com/NVIDIA-AI-IOT/face-mask-detection/blob/master/data_utils/data-tree.txt) structure.
+    - We expect downloaded data in [this](https://github.com/NVIDIA-AI-IOT/face-mask-detection/blob/master/data_utils/data-tree.txt) structure. You'll need to copy into this folder all datasets folder.
     - Convert data set to KITTI format
       ``` cd face-mask-detection ``` <br/>
       ```
@@ -94,7 +88,15 @@ By the end of this project; you will be able to build DeepStream app on Jetson p
     
 - Perform training using [TLT training flow](https://github.com/NVIDIA-AI-IOT/face-mask-detection#nvidia-transfer-learning-toolkit-tlt-training-flow-)
     - Use ['face-mask-detection'](https://github.com/NVIDIA-AI-IOT/face-mask-detection/blob/master/face-mask-detection.ipynb) Jupyter Notebook provided with this repository. 
-    - Follow TLT training flow
+    ```
+    jupyter notebook --ip=0.0.0.0 --allow-root .
+    ```
+    - Follow TLT training flow. Here we followed it successfully until `A. Int8 Optimization` part.
+
+#### Inference
+NVIDIA guys expect us to use the DeepStream SDK on Jetson to run it. Nonetheless this is cryptic and hard to customize. For their instructions follow the section after this custom explanation.
+- Inference with custom python code we developed
+    - We develop a custom way of loading a `.trt` engine file from python, the file is under `inference.py`. For the moment the script was just a debug tool not ready for production and there is hardcoded the path to the engine file to `detectnet_v2/experiment_dir_final_rt/resnet18_detector.trt`. Also feel free to modify it since it also by default reads a .mp4 file for inference testing. The test videos can be found in [this GCP storage directoy](https://console.cloud.google.com/storage/browser/autonomy-vision/images/open-source-datasets/face-mask-detection). This was tested only on a Desktop machine with the float16 pruned model. TODO: test it on Jetson, test int8 optimization and test it running on DLA.
 
 - Perform inference using DeepStream SDK on Jetson
     - Transfer model files (.etlt), if int8: calibration file (calibration.bin)
