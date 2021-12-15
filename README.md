@@ -50,7 +50,7 @@ We have zipped all datasets into one zipped file. You'll need our google credent
       - [Install DeepStream](https://docs.nvidia.com/metropolis/deepstream/dev-guide/index.html#page/DeepStream_Development_Guide/deepstream_quick_start.html#wwpID0E0GI0HA)
 
 - Prepare input data set (On training machine)
-    - We expect downloaded data in [this](https://github.com/NVIDIA-AI-IOT/face-mask-detection/blob/master/data_utils/data-tree.txt) structure. You'll need to copy into this folder all datasets folder.
+    - We expect downloaded data in [this](https://github.com/NVIDIA-AI-IOT/face-mask-detection/blob/master/data_utils/data-tree.txt) structure. You'll need to copy into this folder all datasets folder. If you downloaded the already processed data you can skip this step.
     - Convert data set to KITTI format
       ``` cd face-mask-detection ``` <br/>
       ```
